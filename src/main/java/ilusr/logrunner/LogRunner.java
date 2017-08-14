@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 
 /**
  * 
@@ -13,7 +12,7 @@ import java.util.logging.Level;
  */
 public class LogRunner {
 
-	private static final String FILE_PATH = System.getProperty("user.home") + "/nilrem/Logging/";
+	private static final String FILE_PATH = System.getProperty("user.home") + "/ilusr/Logging/";
 	private static final String EXTENSION = ".tsv";
 	private static final String COUNT_REG = "(#\\d+)*.tsv";
 	private static String applicationName = "gameLog.tsv";
@@ -38,11 +37,11 @@ public class LogRunner {
 				dir.mkdirs();
 			}
 			
+			logger = new LogManager();
 			currentLogFile = generateLogFile(path + "/" + applicationName);
 			fileHandler = new FileHandler(currentLogFile);
 			fileHandler.setFormatter(new TSVFormatter());
 			logger.addHandler(fileHandler);
-			logger.setLevel(Level.FINEST);
 			logger.off(String.format("Starting logging on %s, for %s", today, applicationName));
 		} catch (Exception e) {
 			e.printStackTrace();

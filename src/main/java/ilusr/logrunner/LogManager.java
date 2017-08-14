@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class LogManager {
@@ -18,6 +19,7 @@ public class LogManager {
 	
 	public void setLevel(Level newLevel) {
 		level = newLevel;
+		logger.setLevel(level);
 		for (Handler handler : logger.getHandlers()) {
 			handler.setLevel(level);
 		}
@@ -28,42 +30,42 @@ public class LogManager {
 	}
 	
 	public void all(String message) {
-		logger.log(Level.ALL, message);
+		logger.log(createRecord(Level.ALL, message));
 	}
 	
 	public void config(String message) {
-		logger.log(Level.CONFIG, message);
+		logger.log(createRecord(Level.CONFIG, message));
 	}
 	
 	public void fine(String message) {
-		logger.log(Level.FINE, message);
+		logger.log(createRecord(Level.FINE, message));
 	}
 	
 	public void finer(String message) {
-		logger.log(Level.FINER, message);
+		logger.log(createRecord(Level.FINER, message));
 	}
 	
 	public void finest(String message) {
-		logger.log(Level.FINEST, message);
+		logger.log(createRecord(Level.FINEST, message));
 	}
 	
 	public void info(String message) {
-		logger.log(Level.INFO, message);
+		logger.log(createRecord(Level.INFO, message));
 	}
 	
 	public void off(String message) {
-		logger.log(Level.INFO, message);
+		logger.log(createRecord(Level.INFO, message));
 	}
 	
 	public void severe(String message) {
-		logger.log(Level.SEVERE, message);
+		logger.log(createRecord(Level.SEVERE, message));
 	}
 	
 	public void severe(Exception exception) {
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
 		exception.printStackTrace(printer);
-		logger.log(Level.SEVERE, writer.toString());
+		logger.log(createRecord(Level.SEVERE, writer.toString()));
 		
 		try {
 			printer.close();
@@ -73,6 +75,15 @@ public class LogManager {
 	}
 	
 	public void warning(String message) {
-		logger.log(Level.WARNING, message);
+		logger.log(createRecord(Level.WARNING, message));
+	}
+	
+	private LogRecord createRecord(Level level, String message) {
+		LogRecord record = new LogRecord(level, message);
+		StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+		StackTraceElement element = trace[3];
+		record.setSourceMethodName(element.getMethodName());
+		record.setSourceClassName(element.getClassName());
+		return record;
 	}
 }
