@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ilusr.logrunner","l":"LogManager"},{"p":"ilusr.logrunner","l":"LogRunner"},{"p":"ilusr.logrunner","l":"TSVFormatter"}]

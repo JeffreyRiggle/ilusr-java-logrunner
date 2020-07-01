@@ -28,7 +28,6 @@
   		  <configuration>
   		  	<show>protected</show>
   		  	<failOnError>false</failOnError>
-          <outputDirectory>${project.build.directory}/../doc/apidocs</outputDirectory>
   		  </configuration>
   		  <executions>
   		  	<execution>
