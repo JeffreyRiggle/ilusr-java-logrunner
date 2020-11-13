@@ -2,7 +2,7 @@
 LogRunner is a very simple API for writing Tab Separated logs to a file system.
 
 ## Installing
-You can install this using maven with the following maven configuration
+You can install this using maven with the following maven configuration.
 
 In your .m2
 ```xml
